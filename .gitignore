@@ -1,0 +1,5 @@
+# Ignore all files I want to manipulate for debuggig except the program and repo data
+*
+!*.py
+!*.md
+!.gitignore
