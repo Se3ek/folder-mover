@@ -9,13 +9,11 @@ import os, shutil
 
 # List of to-be-ignored files (mainly for debugging purposes and for itself):
 ignore = ['.git', 'README.md', 'folder-mover.py', '.gitignore']
-# Make a set for for folders to be created:
-nameset = set()
+
 # Create list of non-ignored filenames:
 files = [file for file in os.scandir() if file.name not in ignore]  # Comprehend a list of not ignored filenames
 
-for file in files:
-    nameset.add(os.path.splitext(file.name)[0])     # add names of files without extensions to the set (creating unique entries because set magic)
+nameset = {os.path.splitext(file.name)[0] for file in files} # Make a set for for folders to be created
 
 for item in nameset:
     os.mkdir(item)  # Create directory for every name in the set to then move files into
