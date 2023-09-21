@@ -15,8 +15,6 @@ files = [file for file in os.scandir() if file.name not in ignore]  # Comprehend
 
 nameset = {os.path.splitext(file.name)[0] for file in files} # Make a set for for folders to be created
 
-for item in nameset:
-    os.mkdir(item)  # Create directory for every name in the set to then move files into
+for item in nameset: os.mkdir(item)  # Create directory for every name in the set to then move files into
 
-for filetomove in files:
-        shutil.move(filetomove, os.path.splitext(filetomove)[0])    # move files into their respective folders
+for filetomove in files: shutil.move(filetomove, os.path.splitext(filetomove)[0])    # move files into their respective folders
