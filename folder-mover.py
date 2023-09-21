@@ -7,22 +7,15 @@ if it doesn't already exist, and move it into the folder.
 
 import os, shutil
 
-files = os.scandir()    # Get a list of file objects
-files2 = os.scandir()   # Get duplicate list because after iterating for some reason the used one is empty
-
 # List of to-be-ignored files (mainly for debugging purposes and for itself):
 ignore = ['.git', 'README.md', 'folder-mover.py', '.gitignore']
 # Make a set for for folders to be created:
 nameset = set()
 # Create list of non-ignored filenames:
-filenames = []
-for item in files:
-    if item.name not in ignore:
-        filenames.append(item.name)
+filenames = [file for file in os.scandir() if file.name not in ignore]  # Comprehend a list of not ignored filenames
 
-for file in files2:
-    if file.name not in ignore:
-        nameset.add(os.path.splitext(file.name)[0])     # add names of files without extensions to the set (creating unique entries because set magic)
+for file in filenames:
+    nameset.add(os.path.splitext(file.name)[0])     # add names of files without extensions to the set (creating unique entries because set magic)
 
 for item in nameset:
     os.mkdir(item)  # Create directory for every name in the set to then move files into
