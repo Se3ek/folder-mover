@@ -5,6 +5,7 @@
 # =====================================================
 
 dir=$HOME/temp/folder-mover-tests  # Directory for the testing
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )  # Save the location of the script which in case of development is also the location of the python script
 declare -a check_folders    # Create the empty array to check the folders against
 interval=(1 2 3 4 5)
 
@@ -29,8 +30,7 @@ setup () {   # Nuke the test folder and set it up again for a new test after you
 analyze () {    # Inspect the test folder and echo if there are any problems
     # Analyze the Test directory to see if it contains what it is supposed to
     # This is but one step of a complete test run
-
-    declare -a fails    # Declare an empty array of folder contents
+    declare -a items    # Declare empty array of items to be written into
 
     # Add elements as read from the Test folder:
     for item in ${dir}/*; do
@@ -62,13 +62,25 @@ analyze () {    # Inspect the test folder and echo if there are any problems
 }
 
 init    # Initialize the data to test against
+setup   # First initial setup
 
 # =====================================================
 # Go through the process of testing:
 # =====================================================
 
-# setup   # Set up the test folder
-analyze # Analyze the output from the test
+# Test Case 1: Run from different location with Test directory entered as input path
+cd $HOME/Downloads
+python ${SCRIPT_DIR}/folder-mover.py -p $dir
+echo "Result of Test Case 1:"
+analyze
+setup
+
+# Test Case 2: Run with the test folder as working directory and no input path
+cd ${dir}/
+python ${SCRIPT_DIR}/folder-mover.py
+echo "Result of Test Case 2:"
+analyze
+setup
 
 # ==== Tests finished, remove the testing directory also ====
-# rm -r dir
+rm -r $dir
