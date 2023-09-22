@@ -1,5 +1,5 @@
 # folder-mover
-Moves files into folders of the same name
+Moves files into folders of the same name.
 
 Just a little program to move files into folders of the same name excluding the file extension.
 It is meant to sort multiple file extension versions of content into folders for better visibility.
@@ -10,11 +10,14 @@ if it doesn't already exist, and move it into the folder.
 Execute the program with the following scheme:
 
 ```bash
-python *path-to-script*/folder-mover.py [-p | --path] PATH(str)
+python *path-to-script*/folder-mover.py [-h | --help] [-p | --path] PATH(str) [-i | --ignore] IGNORE(str) [-io | --ignore_only] IGNORE_ONLY(str)
 ```
 
 You have to pass one of the following inputs:
-
+```
+[-h | --help]
+```
+Show the help section of the parser. The script will not do anything else if given this option.
 ```
 [-p | --path]
 ```
@@ -26,7 +29,16 @@ There is a default list of ignored filenames, mainly for debugging and the git f
 ```
 The list is honoured for whichever location the script is run on or from. My assumption is if you're having it work on a directory with a git repo inside, you'd still want the associated repo files to be left alone if present.
 However, if you are in a git repo, know that there may be files and folders that are *not* ignored, perhaps a .github or whatever.
-A future release will give you the possibility to pass in a list of additional to-be-ignored files.
+
+The list can be modified with the following two options:
+```
+[-i | --ignore]
+```
+Put in a comma-separated list of files including extensions (e. g. File1.exe,RandomFile.sh) which contents will be *added to* the default list. This will not take wildcards as of yet.
+```
+[-io | --ignore_only]
+```
+Put in a comma-separated list (e. g. File1.exe,RandomFile.sh) which contents will *replace* the default list. This will not take wildcards as of yet. You can pass both of these but the `-io` will always override the `-i`.
 
 ## Project info
 I personally needed a script like this to sort files downloaded from Humble Bundle where you get multiple files of different types with the same name and contents (e. g. books in pdf, epub, etc.). I wanted these to be saved into a respective folder each to then be stored without having to do it myself.
