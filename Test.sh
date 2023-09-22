@@ -15,6 +15,7 @@ init () {   # Run once; set up everything that's needed for testing
     for i in ${interval[@]}; do
         check_folders=("${check_folders[@]}" "${dir}/Test${i}")  # Build an array of the desired outcome to compare against
     done
+    touch ${dir}/Test1.txt
 }
 
 setup () {   # Nuke the test folder and set it up again for a new test after you got the result for a test case
