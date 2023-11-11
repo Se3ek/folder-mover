@@ -1,6 +1,6 @@
 import os, shutil, argparse
 
-def movefiles(directory, ignore):
+def movefiles(directory: str, ignore: list[str]) -> None:
     """Actual part of the work to be done
 
     Args:
@@ -17,7 +17,7 @@ def movefiles(directory, ignore):
 
     for filetomove in files: shutil.move(filetomove, os.path.join(directory, os.path.splitext(filetomove)[0]))    # move files into their respective folders
 
-def main(args):
+def main(args: argparse.Namespace) -> None:
     """Take the given input and call the work function to move contained files into folders of the name without extension
 
     Args:
